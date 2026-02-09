@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untukmu Sayangku</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    background:#353134;
+    color:white;
+}
+
+/* ================= PASSWORD PAGE ================= */
+#lockScreen{
+    position:fixed;
+    inset:0;
+    background:linear-gradient(135deg,#ff758c,#ff7eb3);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+}
+.lock-box{
+    background:white;
+    color:black;
+    padding:30px;
+    border-radius:15px;
+    text-align:center;
+    width:300px;
+}
+.lock-box input{
+    width:100%;
+    padding:10px;
+    margin:15px 0;
+}
+.lock-box button{
+    padding:10px 20px;
+    background:#ff4d6d;
+    border:none;
+    color:white;
+    cursor:pointer;
+    border-radius:8px;
+}
+
+/* ================= MAIN CONTENT ================= */
+.content{
+    padding:20px;
+    text-align:center;
+    display:none;
+}
+
+/* BOX UTAMA */
+.box{
+    margin:20px auto;
+    width:350px;
+    height:350px;
+    background:url("https://b.top4top.io/p_3692jtwne1.jpeg") center/cover;
+    border-radius:20px;
+    animation:fade 1.5s ease;
+}
+@keyframes fade{
+    from{opacity:0;transform:translateY(-20px)}
+    to{opacity:1;transform:translateY(0)}
+}
+
+h3{color:rgb(177,192,93);margin:15px 0}
+span{color:rgb(88,199,24);font-size:14px}
+
+/* BUTTON */
+.button{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+.btn{
+    background:#d83636;
+    padding:15px;
+    margin:10px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+/* POPUP */
+.popup{
+    position:fixed;
+    top:10%;
+    left:50%;
+    transform:translateX(-50%);
+    background:#F6F6C9;
+    color:black;
+    width:500px;
+    padding:20px;
+    border-radius:15px;
+    display:none;
+    z-index:10;
+}
+.close{
+    background:#A3C7D6;
+    padding:10px;
+    width:120px;
+    margin:15px auto 0;
+    cursor:pointer;
+}
+
+/* ================= SLIDER FOTO ================= */
+.slider{
+    position:relative;
+    max-width:400px;
+    margin:40px auto;
+    overflow:hidden;
+    border-radius:15px;
+}
+.slides{
+    display:flex;
+    transition:0.5s;
+}
+.slides img{
+    width:100%;
+    flex-shrink:0;
+}
+.prev,.next{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    background:rgba(0,0,0,0.6);
+    padding:10px;
+    cursor:pointer;
+}
+.prev{left:10px}
+.next{right:10px}
+
+/* ================= CARD GALLERY ================= */
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    margin-top:30px;
+}
+.card{
+    background:white;
+    color:black;
+    border-radius:15px;
+    overflow:hidden;
+    cursor:pointer;
+    transition:0.3s;
+}
+.card img{
+    width:100%;
+    height:200px;
+    object-fit:cover;
+}
+.card p{padding:15px}
+
+/* ANIMASI KLIK */
+.card:active{
+    transform:scale(0.95);
+}
+.card:hover{
+    box-shadow:0 0 20px pink;
+}
+
+/* MUSIC */
+.player{
+    margin:40px auto;
+    width:350px;
+    background:#f1f3f4;
+}
+.player img{width:100%}
+.player audio{width:100%}
+
+/* FOOTER */
+footer{
+    margin-top:40px;
+    background:#e0a174;
+    color:black;
+    padding:20px;
+}
+
+@media(max-width:480px){
+    .box{width:280px;height:280px}
+    .popup{width:300px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= PASSWORD SCREEN ================= -->
+<div id="lockScreen">
+    <div class="lock-box">
+        <h2>🔒 Private Page</h2>
+        <p>Masukkan Password</p>
+        <input type="password" id="password">
+        <button onclick="checkPassword()">Masuk</button>
+        <p id="error" style="color:red;"></p>
+    </div>
+</div>
+
+<!-- ================= MAIN CONTENT ================= -->
+<div class="content" id="mainContent">
+
+<h3 id="nama"></h3>
+<p id="tanggal"></p>
+
+<div class="box"></div>
+
+<h3>HI SAYANG!<br>
+<span>- Thank you for making every miracle possible -</span></h3>
+
+<div class="button">
+    <div class="btn" onclick="toggle('p1')">Mystery Box 1</div>
+    <div class="btn" onclick="toggle('p2')">Mystery Box 2</div>
+    <div class="btn" onclick="toggle('p3')">Mystery Box 3</div>
+</div>
+
+<!-- POPUP -->
+<div class="popup" id="p1">
+<p>Aku bersyukur banget bisa memiliki kamu ❤️</p>
+<div class="close" onclick="toggle('p1')">Thank You</div>
+</div>
+<div class="popup" id="p2">
+<p>Kamu adalah alasan senyumku setiap hari ✨</p>
+<div class="close" onclick="toggle('p2')">Thank You</div>
+</div>
+<div class="popup" id="p3">
+<p>Jika hanya ada satu orang yang mencintaimu, itu aku 🤍</p>
+<div class="close" onclick="toggle('p3')">Thank You</div>
+</div>
+
+<!-- SLIDER FOTO -->
+<h3>📸 Kenangan Kita</h3>
+<div class="slider">
+    <div class="slides" id="slides">
+        <img src="https://picsum.photos/400/300?1">
+        <img src="https://picsum.photos/400/300?2">
+        <img src="https://picsum.photos/400/300?3">
+    </div>
+    <div class="prev" onclick="move(-1)">❮</div>
+    <div class="next" onclick="move(1)">❯</div>
+</div>
+
+<!-- CARD -->
+<div class="gallery">
+    <div class="card">
+        <img src="https://picsum.photos/300/200?4">
+        <p>Kamu adalah bahagiaku.</p>
+    </div>
+    <div class="card">
+        <img src="https://picsum.photos/300/200?5">
+        <p>Aku cinta kamu.</p>
+    </div>
+    <div class="card">
+        <img src="https://picsum.photos/300/200?6">
+        <p>Selamanya bersamamu.</p>
+    </div>
+</div>
+
+<!-- MUSIC -->
+<h3>THIS SONG IS FOR YOU</h3>
+<div class="player">
+    <img src="https://l.top4top.io/p_2499gdjy81.jpg">
+    <audio controls>
+        <source src="https://a.top4top.io/m_2499eylq21.mp3">
+    </audio>
+</div>
+
+<footer>
+<b>&copy; 2026 – Vista Zahrotunnisa ❤️</b>
+</footer>
+</div>
+
+<script>
+/* ===== GANTI DI SINI ===== */
+const PASSWORD = "sayang123";
+const namaSayang = "Ayrtuur Ducaty Gamlamo  💖";
+const tanggalLahir = "2000-03-15";
+
+/* PASSWORD */
+function checkPassword(){
+    const pass=document.getElementById("password").value;
+    if(pass===PASSWORD){
+        document.getElementById("lockScreen").style.display="none";
+        document.getElementById("mainContent").style.display="block";
+    }else{
+        document.getElementById("error").innerText="Password salah!";
+    }
+}
+
+/* NAMA & TANGGAL */
+const today=new Date();
+const birth=new Date(tanggalLahir);
+let usia=today.getFullYear()-birth.getFullYear();
+if(today.getMonth()<birth.getMonth() || 
+(today.getMonth()==birth.getMonth() && today.getDate()<birth.getDate())) usia--;
+
+document.getElementById("nama").innerHTML=`🎉 Selamat Ulang Tahun ${namaSayang}! 🎉`;
+document.getElementById("tanggal").innerHTML=
+`Hari ini: ${today.toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'})}
+<br>Usia kamu sekarang: <b>${usia} Tahun</b>`;
+
+/* POPUP */
+function toggle(id){
+    const x=document.getElementById(id);
+    x.style.display=x.style.display==="block"?"none":"block";
+}
+
+/* SLIDER */
+let index=0;
+function move(step){
+    const slides=document.getElementById("slides");
+    const total=slides.children.length;
+    index=(index+step+total)%total;
+    slides.style.transform=`translateX(${-index*100}%)`;
+}
+setInterval(()=>move(1),4000);
+</script>
+
+</body>
+</html>
